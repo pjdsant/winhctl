@@ -8,7 +8,6 @@ namespace LikeWater.WinHCtl.WinApi
 {
     public class WinApiX
     {
-
         [DllImport("user32.dll")]
         private static extern int GetClassName(IntPtr hWnd, StringBuilder buf, int nMaxCount);
 
@@ -22,7 +21,12 @@ namespace LikeWater.WinHCtl.WinApi
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern bool EnumChildWindows(IntPtr window, EnumWindowProc callback, IntPtr i);
 
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = false)]
+        public static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, int wParam, string lParam);
+
         private delegate bool EnumWindowProc(IntPtr hWnd, IntPtr parameter);
+
+
 
         private static bool EnumChildWindowsCallback(IntPtr handle, IntPtr pointer)
         {
@@ -88,6 +92,24 @@ namespace LikeWater.WinHCtl.WinApi
             }
         }
 
+
+        public static void SendText(string windowTitle, int index, string message)
+        {
+            try
+            {
+                var windowHWnd = FindWindowByCaption(IntPtr.Zero, windowTitle);
+                var childWindows = GetChildWindows(windowHWnd);
+                const uint WM_SETTEXT = 0x000C;
+                var hdchild = childWindows.ToArray()[index];
+
+                SendMessage(childWindows.ToArray()[index], WM_SETTEXT, 0, message);
+            }
+
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
 
 
     }
