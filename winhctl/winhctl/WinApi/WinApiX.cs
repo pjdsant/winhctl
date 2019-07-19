@@ -79,7 +79,7 @@ namespace LikeWater.WinHCtl.WinApi
 
             return sb.ToString();
         }
-        public static string GetText(string windowTitle, int index)
+        public string GetText(string windowTitle, int index)
         {
             var sb = new StringBuilder();
             try
@@ -98,7 +98,7 @@ namespace LikeWater.WinHCtl.WinApi
         }
 
 
-        public static void SendText(string windowTitle, int index, string message)
+        public void SendText(string windowTitle, int index, string message)
         {
             try
             {
@@ -117,7 +117,7 @@ namespace LikeWater.WinHCtl.WinApi
         }
 
 
-        public static void SendClick(string windowTitle, int idx)
+        public void SendClick(string windowTitle, int idx)
         {
             try
             {
@@ -133,7 +133,7 @@ namespace LikeWater.WinHCtl.WinApi
         }
 
 
-        public static string GetComboItem(string windowTitle, int index, int item)
+        public string GetComboItem(string windowTitle, int index, int item)
         {
             try
             {
@@ -151,7 +151,7 @@ namespace LikeWater.WinHCtl.WinApi
             }
         }
 
-        public static void SetComboItem(string windowTitle, int index, int item)
+        public void SetComboItem(string windowTitle, int index, int item)
         {
             try
             {
