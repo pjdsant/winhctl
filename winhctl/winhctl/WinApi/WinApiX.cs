@@ -22,10 +22,12 @@ namespace LikeWater.WinHCtl.WinApi
         private static extern bool EnumChildWindows(IntPtr window, EnumWindowProc callback, IntPtr i);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = false)]
-        public static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, int wParam, string lParam);
+        private static extern IntPtr SendMessage(IntPtr hWnd, uint Msg, int wParam, string lParam);
+
+        [DllImport("user32.dll", EntryPoint = "SendMessage", CharSet = CharSet.Auto)]
+        private static extern IntPtr SendMessageClick(IntPtr hWnd, UInt32 Msg, IntPtr wParam, IntPtr lParam);
 
         private delegate bool EnumWindowProc(IntPtr hWnd, IntPtr parameter);
-
 
 
         private static bool EnumChildWindowsCallback(IntPtr handle, IntPtr pointer)
@@ -105,6 +107,22 @@ namespace LikeWater.WinHCtl.WinApi
                 SendMessage(childWindows.ToArray()[index], WM_SETTEXT, 0, message);
             }
 
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+
+        public static void Click(string windowTitle, int idx)
+        {
+            try
+            {
+                var windowHWnd = FindWindowByCaption(IntPtr.Zero, windowTitle);
+                var childWindows = GetChildWindows(windowHWnd);
+                const int BM_CLICK = 0x00F5;
+                SendMessageClick(childWindows.ToArray()[idx], BM_CLICK, new IntPtr(0), new IntPtr(0));
+            }
             catch (Exception e)
             {
                 throw new Exception(e.Message);
