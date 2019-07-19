@@ -27,6 +27,9 @@ namespace LikeWater.WinHCtl.WinApi
         [DllImport("user32.dll", EntryPoint = "SendMessage", CharSet = CharSet.Auto)]
         private static extern IntPtr SendMessageClick(IntPtr hWnd, UInt32 Msg, IntPtr wParam, IntPtr lParam);
 
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = false, EntryPoint = "SendMessage")]
+        private static extern IntPtr SendRefMessage(IntPtr hWnd, uint Msg, int wParam, StringBuilder lParam);
+
         private delegate bool EnumWindowProc(IntPtr hWnd, IntPtr parameter);
 
 
@@ -114,7 +117,7 @@ namespace LikeWater.WinHCtl.WinApi
         }
 
 
-        public static void Click(string windowTitle, int idx)
+        public static void SendClick(string windowTitle, int idx)
         {
             try
             {
@@ -128,6 +131,26 @@ namespace LikeWater.WinHCtl.WinApi
                 throw new Exception(e.Message);
             }
         }
+
+
+        public static string GetComboItem(string windowTitle, int index, int item)
+        {
+            try
+            {
+                var windowHWnd = FindWindowByCaption(IntPtr.Zero, windowTitle);
+                var childWindows = GetChildWindows(windowHWnd);
+                const int CB_GETLBTEXT = 0x0148;
+                StringBuilder ssb = new StringBuilder(256, 256);
+
+                SendRefMessage(childWindows.ToArray()[index], CB_GETLBTEXT, item, ssb);
+                return ssb.ToString();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
 
 
     }
