@@ -151,6 +151,21 @@ namespace LikeWater.WinHCtl.WinApi
             }
         }
 
+        public static void SetComboItem(string windowTitle, int index, int item)
+        {
+            try
+            {
+                var windowHWnd = FindWindowByCaption(IntPtr.Zero, windowTitle);
+                var childWindows = GetChildWindows(windowHWnd);
+                const int CB_SETCURSEL = 0x014E;
+                SendMessage(childWindows.ToArray()[index], CB_SETCURSEL, item, "0");
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
 
 
     }
