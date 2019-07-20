@@ -6,6 +6,10 @@ using System.Text;
 
 namespace LikeWater.WinHCtl.WinApi
 {
+    [ClassInterface(ClassInterfaceType.AutoDual)]
+    [ProgId("LikeWater.WinHandlerControlEx")]
+    [ComVisible(true)]
+
     public class WinApiX
     {
         [DllImport("user32.dll")]
@@ -96,7 +100,6 @@ namespace LikeWater.WinHCtl.WinApi
                 throw new Exception(e.Message);
             }
         }
-
 
         public void SendText(string windowTitle, int index, string message)
         {

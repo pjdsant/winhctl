@@ -1,6 +1,6 @@
-C:\repositorio\winhctl\winhctl\winhctl\obj\Debug\LikeWaterWinHCtl.csproj.CoreCompileInputs.cache
 C:\repositorio\winhctl\winhctl\winhctl\bin\Debug\winhctl.dll
 C:\repositorio\winhctl\winhctl\winhctl\bin\Debug\winhctl.pdb
 C:\repositorio\winhctl\winhctl\winhctl\obj\Debug\LikeWaterWinHCtl.csprojAssemblyReference.cache
+C:\repositorio\winhctl\winhctl\winhctl\obj\Debug\LikeWaterWinHCtl.csproj.CoreCompileInputs.cache
 C:\repositorio\winhctl\winhctl\winhctl\obj\Debug\winhctl.dll
 C:\repositorio\winhctl\winhctl\winhctl\obj\Debug\winhctl.pdb
