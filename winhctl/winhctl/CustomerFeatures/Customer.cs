@@ -7,7 +7,7 @@ namespace LikeWater.WinHCtl.CustomerFeatures
 {
 
     [ClassInterface(ClassInterfaceType.AutoDual)]
-    [ProgId("LikeWater.WinHandlerControl")]
+    [ProgId("LikeWater.WinHandlerControlEx")]
     [ComVisible(true)]
 
     public class Customer

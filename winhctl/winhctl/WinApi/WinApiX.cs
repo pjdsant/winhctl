@@ -7,7 +7,7 @@ using System.Text;
 namespace LikeWater.WinHCtl.WinApi
 {
     [ClassInterface(ClassInterfaceType.AutoDual)]
-    [ProgId("LikeWater.WinHandlerControlEx")]
+    [ProgId("LikeWater.WinHandlerControl")]
     [ComVisible(true)]
 
     public class WinApiX
