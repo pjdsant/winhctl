@@ -72,6 +72,9 @@ item = is the item in the combo to be selected.
 This method return phones from GEO screen in the Main Form and the child Form.
 ie.
 
+Note.: This method uses internally regex function to filter phone without special characters like "-, (, ),"
+
+
 <script language="javascript" type="application/javascript">
   var activeEx = new ActiveXObject("LikeWater.WinHandlerControlEx");
   var phones =  activeEx.GetPhones("Main Form Caption", 1, 2, "Child Form Caption", 1);
