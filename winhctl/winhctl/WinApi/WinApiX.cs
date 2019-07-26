@@ -120,14 +120,14 @@ namespace LikeWater.WinHCtl.WinApi
         }
 
 
-        public void SendClick(string windowTitle, int iindex)
+        public void SendClick(string windowTitle, int index)
         {
             try
             {
                 var windowHWnd = FindWindowByCaption(IntPtr.Zero, windowTitle);
                 var childWindows = GetChildWindows(windowHWnd);
                 const int BM_CLICK = 0x00F5;
-                SendMessageClick(childWindows.ToArray()[iindex], BM_CLICK, new IntPtr(0), new IntPtr(0));
+                SendMessageClick(childWindows.ToArray()[index], BM_CLICK, new IntPtr(0), new IntPtr(0));
             }
             catch (Exception e)
             {
