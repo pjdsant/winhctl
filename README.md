@@ -19,6 +19,10 @@ Now you can use the winctl.dll from your javascript code.
   var activeEx = new ActiveXObject("LikeWater.WinHandlerControlEx");
 </script>
 
+![](https://github.com/pjdsant/winhctl/blob/master/regasm.png)
+
+> ReAsm.exe.
+
 # Winhctl methods available:
 
 # 1 - GetText(string windowTitle, int index)
@@ -79,4 +83,37 @@ Note.: This method uses internally regex function to filter phone without specia
   var activeEx = new ActiveXObject("LikeWater.WinHandlerControlEx");
   var phones =  activeEx.GetPhones("Main Form Caption", 1, 2, "Child Form Caption", 1);
 </script>
+
+
+# Sample
+
+Using GetPhones Method to obtain three phone number from textBox on the forms (Main/Child).
+
+![](https://github.com/pjdsant/winhctl/blob/master/Sample.png)
+
+> Sample use GetPhones Method.
+
+
+
+# Discovery Session
+
+# SpyClass - This library can discovery all ClassName, Handler and Index from Window Caption.
+To use spyclass.exe, follow these steps:
+
+1 - Download spyclass.exe and install in your OS. ie “C:\likewater\spyclass.exe”.
+
+2 - Run the command “.\spyclass.exe “Main Form Caption”
+
+
+![](https://github.com/pjdsant/winhctl/blob/master/spyclassRun.png)
+
+> SpyClass Command.
+
+
+3 - After Run spyclass the SpyLog will be generated with all information:
+
+
+![](https://github.com/pjdsant/winhctl/blob/master/spyClass.png)
+
+> SpyClass Sample Use GetPhones method.
 
