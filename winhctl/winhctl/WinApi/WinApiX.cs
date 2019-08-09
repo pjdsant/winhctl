@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using LikeWater.WinHCtl.License;
 
 namespace LikeWater.WinHCtl.WinApi
 {
     [ClassInterface(ClassInterfaceType.AutoDual)]
     [ProgId("LikeWater.WinHandlerControl")]
     [ComVisible(true)]
+
+
 
     public class WinApiX
     {
@@ -35,6 +38,10 @@ namespace LikeWater.WinHCtl.WinApi
         private static extern IntPtr SendRefMessage(IntPtr hWnd, uint Msg, int wParam, StringBuilder lParam);
 
         private delegate bool EnumWindowProc(IntPtr hWnd, IntPtr parameter);
+
+        [DllImport("user32.dll")]
+        public static extern int MessageBox(IntPtr hwnd, String text, String caption, uint type);
+
 
 
         private static bool EnumChildWindowsCallback(IntPtr handle, IntPtr pointer)
@@ -88,12 +95,23 @@ namespace LikeWater.WinHCtl.WinApi
             var sb = new StringBuilder();
             try
             {
-                var windowHWnd = FindWindowByCaption(IntPtr.Zero, windowTitle);
-                var childWindows = GetChildWindows(windowHWnd);
-                var childWindowText = GetTextX(childWindows.ToArray()[index]);
-                sb.Append(childWindowText);
+                LicenseManager licensed = new LicenseManager();
+
+                if (licensed.Expiracao_Sistema())
+                {
+                    var windowHWnd = FindWindowByCaption(IntPtr.Zero, windowTitle);
+                    var childWindows = GetChildWindows(windowHWnd);
+                    var childWindowText = GetTextX(childWindows.ToArray()[index]);
+                    sb.Append(childWindowText);
+                    MessageBox(new IntPtr(0), "License ok", "License Manager", 0);
+                }
+                else
+                {
+                    MessageBox(new IntPtr(0), "License expired", "License Manager", 0);
+                }
 
                 return sb.ToString();
+
             }
             catch (Exception e)
             {
