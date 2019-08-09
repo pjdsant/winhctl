@@ -1,14 +1,14 @@
-﻿using LikeWater.WinHCtl.License;
+﻿using PJSIT.WinHCtl.License;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace LikeWater.WinHCtl.WinApi
+namespace PJSIT.WinHCtl.WinApi
 {
     [ClassInterface(ClassInterfaceType.AutoDual)]
-    [ProgId("LikeWater.WinHandlerControl")]
+    [ProgId("PJSIT.WinHandlerControl")]
     [ComVisible(true)]
 
     public class WinApiX

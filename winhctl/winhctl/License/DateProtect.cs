@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace LikeWater.WinHCtl.License
+namespace PJSIT.WinHCtl.License
 {
     public class DateProtect
     {

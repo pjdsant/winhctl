@@ -1,13 +1,13 @@
-﻿using LikeWater.WinHCtl.WinApi;
+﻿using PJSIT.WinHCtl.WinApi;
 using System;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
-namespace LikeWater.WinHCtl.CustomerFeatures
+namespace PJSIT.WinHCtl.CustomerFeatures
 {
 
     [ClassInterface(ClassInterfaceType.AutoDual)]
-    [ProgId("LikeWater.WinHandlerControlEx")]
+    [ProgId("PJSIT.WinHandlerControlEx")]
     [ComVisible(true)]
 
     public class Customer

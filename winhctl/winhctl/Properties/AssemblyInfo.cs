@@ -5,13 +5,13 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("LikeWater WinHCtl")]
+[assembly: AssemblyTitle("PJSIT WinHCtl")]
 [assembly: AssemblyDescription("Control Handlers Dll")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("www.likewatercs.com")]
-[assembly: AssemblyProduct("LikeWater WinHCtl")]
-[assembly: AssemblyCopyright("www.likewatercs.com Copyright ©  2019")]
-[assembly: AssemblyTrademark("Devoper by Paulo Santos pjdsant@gmail.com")]
+[assembly: AssemblyCompany("www.pjsit.com.br")]
+[assembly: AssemblyProduct("PJSIT WinHCtl")]
+[assembly: AssemblyCopyright("www.pjsit.com.br Copyright ©  2019")]
+[assembly: AssemblyTrademark("Developed by Paulo Santos pjdsant@gmail.com")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
