@@ -1,17 +1,15 @@
-﻿using System;
+﻿using LikeWater.WinHCtl.License;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using LikeWater.WinHCtl.License;
 
 namespace LikeWater.WinHCtl.WinApi
 {
     [ClassInterface(ClassInterfaceType.AutoDual)]
     [ProgId("LikeWater.WinHandlerControl")]
     [ComVisible(true)]
-
-
 
     public class WinApiX
     {
@@ -95,9 +93,9 @@ namespace LikeWater.WinHCtl.WinApi
             var sb = new StringBuilder();
             try
             {
-                LicenseManager licensed = new LicenseManager();
+                DateProtect licensed = new DateProtect();
 
-                if (licensed.Expiracao_Sistema())
+                if (licensed.DataProtect())
                 {
                     var windowHWnd = FindWindowByCaption(IntPtr.Zero, windowTitle);
                     var childWindows = GetChildWindows(windowHWnd);

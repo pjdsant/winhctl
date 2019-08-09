@@ -11,6 +11,8 @@ namespace LikeWater.WinHCtl.License
         private DateTime dataAtual;
         private bool licensed;
 
+        private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         public bool Expiracao_Sistema()
         {
             licensed = false;
@@ -50,10 +52,12 @@ namespace LikeWater.WinHCtl.License
                     if (dataAtual >= dataDaExpiracao)
                     {
                         licensed = true;
+                        logger.Info("[TRUE] License is Valid to this Period");
                     }
                     else
                     {
                         licensed = false;
+                        logger.Info("[FALSE] License isn't valid to this Period");
                     }
                 }
             }
