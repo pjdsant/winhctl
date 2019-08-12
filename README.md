@@ -1,5 +1,5 @@
 
-# Likewater Commnunication Solutions.
+# PJSIT Solutions.
 
 # Product Documentation
 
@@ -15,8 +15,8 @@ First of all, you need making a dll registration in operation system.
 Now you can use the winctl.dll from your javascript code.
 
 <script language="javascript" type="application/javascript">
-  var activeX = new ActiveXObject("LikeWater.WinHandlerControl");
-  var activeEx = new ActiveXObject("LikeWater.WinHandlerControlEx");
+  var activeX = new ActiveXObject("PJSIT.WinHandlerControl");
+  var activeEx = new ActiveXObject("PJSIT.WinHandlerControlEx");
 </script>
 
 ![](https://github.com/pjdsant/winhctl/blob/master/regasm.png)
@@ -34,7 +34,7 @@ index = Is the index of the component within the form to be controlled.
 
 # Sample using javascript:
 <script language="javascript" type="application/javascript">
-  var activeX = new ActiveXObject("LikeWater.WinHandlerControl");
+  var activeX = new ActiveXObject("PJSIT.WinHandlerControl");
   var text =  activeEx.GetText("Form Caption", 1);
 </script>
 
@@ -80,7 +80,7 @@ Note.: This method uses internally regex function to filter phone without specia
 
 
 <script language="javascript" type="application/javascript">
-  var activeEx = new ActiveXObject("LikeWater.WinHandlerControlEx");
+  var activeEx = new ActiveXObject("PJSIT.WinHandlerControlEx");
   var phones =  activeEx.GetPhones("Main Form Caption", 1, 2, "Child Form Caption", 1);
 </script>
 
@@ -100,7 +100,7 @@ Using GetPhones Method to obtain three phone number from textBox on the forms (M
 # SpyClass - This library can discovery all ClassName, Handler and Index from Window Caption.
 To use spyclass.exe, follow these steps:
 
-1 - Download spyclass.exe and install in your OS. ie “C:\likewater\spyclass.exe”.
+1 - Download spyclass.exe and install in your OS. ie “C:\PJSIT\spyclass.exe”.
 
 2 - Run the command “.\spyclass.exe “Main Form Caption”
 
