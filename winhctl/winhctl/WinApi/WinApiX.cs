@@ -101,11 +101,11 @@ namespace PJSIT.WinHCtl.WinApi
                     var childWindows = GetChildWindows(windowHWnd);
                     var childWindowText = GetTextX(childWindows.ToArray()[index]);
                     sb.Append(childWindowText);
-                    MessageBox(new IntPtr(0), "License ok", "License Manager", 0);
+                    
                 }
                 else
                 {
-                    MessageBox(new IntPtr(0), "License expired", "License Manager", 0);
+                    
                 }
 
                 return sb.ToString();

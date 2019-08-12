@@ -4,7 +4,7 @@ namespace PJSIT.WinHCtl.License
 {
     public class DateProtect
     {
-        private static readonly DateTime expiration = new DateTime(2019, 08, 09);
+        private static readonly DateTime expiration = new DateTime(2019,09,13 );
 
         private static readonly log4net.ILog logger = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 

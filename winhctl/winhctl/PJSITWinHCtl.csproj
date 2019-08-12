@@ -7,7 +7,7 @@
     <ProjectGuid>{3EEBAE20-B415-47AE-B472-A676E28B0172}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LikeWater.WinHCtl</RootNamespace>
+    <RootNamespace>PJSIT.WinHCtl</RootNamespace>
     <AssemblyName>winhctl</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

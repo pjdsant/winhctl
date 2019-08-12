@@ -1,5 +1,4 @@
 ﻿using PJSIT.WinHCtl.WinApi;
-using System;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
