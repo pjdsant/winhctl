@@ -32,8 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="RegMan">
-      <HintPath>..\RegMan.dll</HintPath>
+    <Reference Include="RegMan, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\regman\RegMan\bin\Debug\RegMan.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -48,7 +49,6 @@
     <Compile Include="Class1.cs" />
     <Compile Include="CustomerFeatures\Customer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resource\RegistryManager.cs" />
     <Compile Include="WinApi\WinApiX.cs" />
   </ItemGroup>
   <ItemGroup />

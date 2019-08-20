@@ -94,7 +94,6 @@ namespace LikeWater.WinHCtl.WinApi
                 sb.Append(childWindowText);
 
                 RegistryManager rm = new RegistryManager();
-
                 rm.WriteRegistryEvents("GetText");
 
                 return sb.ToString();
@@ -115,6 +114,9 @@ namespace LikeWater.WinHCtl.WinApi
                 var hdchild = childWindows.ToArray()[index];
 
                 SendMessage(childWindows.ToArray()[index], WM_SETTEXT, 0, message);
+
+                RegistryManager rm = new RegistryManager();
+                rm.WriteRegistryEvents("SendText");
             }
 
             catch (Exception e)
