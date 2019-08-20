@@ -10,3 +10,5 @@ C:\repositorios\winhctl\winhctl\winhctl\obj\Debug\LikeWaterWinHCtl.csprojAssembl
 C:\repositorios\winhctl\winhctl\winhctl\obj\Debug\LikeWaterWinHCtl.csproj.CoreCompileInputs.cache
 C:\repositorios\winhctl\winhctl\winhctl\obj\Debug\winhctl.dll
 C:\repositorios\winhctl\winhctl\winhctl\obj\Debug\winhctl.pdb
+C:\repositorios\winhctl\winhctl\winhctl\bin\Debug\RegMan.dll
+C:\repositorios\winhctl\winhctl\winhctl\obj\Debug\LikeWaterWinHCtl.csproj.CopyComplete

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RegMan.Resource;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -35,7 +36,6 @@ namespace LikeWater.WinHCtl.WinApi
         private static extern IntPtr SendRefMessage(IntPtr hWnd, uint Msg, int wParam, StringBuilder lParam);
 
         private delegate bool EnumWindowProc(IntPtr hWnd, IntPtr parameter);
-
 
         private static bool EnumChildWindowsCallback(IntPtr handle, IntPtr pointer)
         {
@@ -93,6 +93,10 @@ namespace LikeWater.WinHCtl.WinApi
                 var childWindowText = GetTextX(childWindows.ToArray()[index]);
                 sb.Append(childWindowText);
 
+                RegistryManager rm = new RegistryManager();
+
+                rm.WriteRegistryEvents("GetText");
+
                 return sb.ToString();
             }
             catch (Exception e)
@@ -128,6 +132,9 @@ namespace LikeWater.WinHCtl.WinApi
                 var childWindows = GetChildWindows(windowHWnd);
                 const int BM_CLICK = 0x00F5;
                 SendMessageClick(childWindows.ToArray()[index], BM_CLICK, new IntPtr(0), new IntPtr(0));
+
+                RegistryManager rm = new RegistryManager();
+                rm.WriteRegistryEvents("SendClick");
             }
             catch (Exception e)
             {
