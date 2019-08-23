@@ -136,6 +136,7 @@ namespace LikeWater.WinHCtl.WinApi
                 SendMessageClick(childWindows.ToArray()[index], BM_CLICK, new IntPtr(0), new IntPtr(0));
 
                 RegistryManager rm = new RegistryManager();
+                rm.ReadRegistryEvents("SendClick");
                 rm.WriteRegistryEvents("SendClick");
             }
             catch (Exception e)
