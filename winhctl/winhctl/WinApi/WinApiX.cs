@@ -1,9 +1,11 @@
 ﻿using RegMan.Resource;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Windows.Forms;
 
 namespace LikeWater.WinHCtl.WinApi
 {
@@ -34,6 +36,22 @@ namespace LikeWater.WinHCtl.WinApi
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = false, EntryPoint = "SendMessage")]
         private static extern IntPtr SendRefMessage(IntPtr hWnd, uint Msg, int wParam, StringBuilder lParam);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = false, EntryPoint = "SendMessage")]
+        static extern IntPtr SendMessageList(IntPtr hWnd, uint Msg, UIntPtr wParam, IntPtr lParam);
+
+        [DllImport("user32.dll", EntryPoint = "WindowFromPoint",CharSet = CharSet.Auto, ExactSpelling = true)]
+        public static extern IntPtr WindowFromPoint(Point point);
+
+        [DllImport("user32.dll")]
+        private static extern bool SetForegroundWindow(IntPtr hWnd);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+
+        [DllImport("user32.dll")]
+        private static extern IntPtr SendMessage(IntPtr hWnd, int Msg,IntPtr wParam, IntPtr lParam);
+
 
         private delegate bool EnumWindowProc(IntPtr hWnd, IntPtr parameter);
 
@@ -179,7 +197,38 @@ namespace LikeWater.WinHCtl.WinApi
             }
         }
 
+        private Button button1 = new Button();
+        public void SetListItem(string windowTitle, int index, int item)
+        {
+            try
+            {
+                var windowHWnd = FindWindowByCaption(IntPtr.Zero, windowTitle);
+                var childWindows = GetChildWindows(windowHWnd);
+                IntPtr hWnd = childWindows.ToArray()[index];
 
 
+                //IntPtr hWnd = (IntPtr)FindWindow("notepad.exe", null);
+                const int WM_RBUTTONDOWN = 0x0204;
+
+                SetForegroundWindow(hWnd);
+
+                var screenPoint = button1.PointToScreen(new Point(1210, 460));
+                var handle = WindowFromPoint(screenPoint);
+
+                if (handle != IntPtr.Zero)
+                {
+                    SendMessage(handle, WM_RBUTTONDOWN, IntPtr.Zero, IntPtr.Zero);
+                    SendMessage(handle, WM_RBUTTONDOWN, IntPtr.Zero, IntPtr.Zero);
+                }
+
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+
+        
     }
 }
