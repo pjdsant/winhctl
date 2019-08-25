@@ -106,53 +106,68 @@ namespace LikeWater.WinHCtl.WinApi
 
         private void virtual_MouseMove(Point p)
         {
-            SetCursorPos(p.X, p.Y);
+            try
+            {
+                SetCursorPos(p.X, p.Y);
+            }
+            catch (Exception e)
+            {
+
+                throw new Exception(e.Message); ;
+            }
+           
         }
 
         private void virtual_MouseEvent(MouseButtons button, EventType type = EventType.Click, bool doubleClick = false)
 
         {
-
-            MouseEventFlag flagUp = new MouseEventFlag();
-
-            MouseEventFlag flagDown = new MouseEventFlag();
-
-            switch (button)
+            try
             {
-                case MouseButtons.Left:
-                    flagUp = MouseEventFlag.LeftUp;
-                    flagDown = MouseEventFlag.LeftDown;
-                    break;
-                case MouseButtons.Middle:
-                    flagUp = MouseEventFlag.MiddleUp;
-                    flagDown = MouseEventFlag.MiddleDown;
-                    break;
-                case MouseButtons.Right:
-                    flagUp = MouseEventFlag.RightUp;
-                    flagDown = MouseEventFlag.RightDown;
-                    break;
-                default://defaul left button
-                    flagUp = MouseEventFlag.LeftUp;
-                    flagDown = MouseEventFlag.LeftDown;
-                    break;
-            }
+                MouseEventFlag flagUp = new MouseEventFlag();
 
-            if (type == EventType.Click)
-            {
-                int count = doubleClick == false ? 1 : 2;//check
-                for (int i = 0; i < count; i++)
+                MouseEventFlag flagDown = new MouseEventFlag();
+
+                switch (button)
                 {
-                    mouse_event(flagUp, 0, 0, 0, 0);
-                    mouse_event(flagDown, 0, 0, 0, 0);
+                    case MouseButtons.Left:
+                        flagUp = MouseEventFlag.LeftUp;
+                        flagDown = MouseEventFlag.LeftDown;
+                        break;
+                    case MouseButtons.Middle:
+                        flagUp = MouseEventFlag.MiddleUp;
+                        flagDown = MouseEventFlag.MiddleDown;
+                        break;
+                    case MouseButtons.Right:
+                        flagUp = MouseEventFlag.RightUp;
+                        flagDown = MouseEventFlag.RightDown;
+                        break;
+                    default://defaul left button
+                        flagUp = MouseEventFlag.LeftUp;
+                        flagDown = MouseEventFlag.LeftDown;
+                        break;
+                }
+
+                if (type == EventType.Click)
+                {
+                    int count = doubleClick == false ? 1 : 2;//check
+                    for (int i = 0; i < count; i++)
+                    {
+                        mouse_event(flagUp, 0, 0, 0, 0);
+                        mouse_event(flagDown, 0, 0, 0, 0);
+                    }
+                }
+
+                else
+                {
+                    if (type == EventType.Down)
+                        mouse_event(flagDown, 0, 0, 0, 0);
+                    else if (type == EventType.Up)
+                        mouse_event(flagUp, 0, 0, 0, 0);
                 }
             }
-
-            else
+            catch (Exception e)
             {
-                if (type == EventType.Down)
-                    mouse_event(flagDown, 0, 0, 0, 0);
-                else if (type == EventType.Up)
-                    mouse_event(flagUp, 0, 0, 0, 0);
+                throw new Exception(e.Message);
             }
         }
 
@@ -163,14 +178,21 @@ namespace LikeWater.WinHCtl.WinApi
             var gcHandle = GCHandle.FromIntPtr(pointer);
             var list = gcHandle.Target as List<IntPtr>;
 
-            if (list == null)
+            try
             {
-                throw new InvalidCastException("GCHandle Target could not be cast as List<IntPtr>");
+                if (list == null)
+                {
+                    throw new InvalidCastException("GCHandle Target could not be cast as List<IntPtr>");
+                }
+
+                list.Add(handle);
+
+                return true;
             }
-
-            list.Add(handle);
-
-            return true;
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
 
         private static IEnumerable<IntPtr> GetChildWindows(IntPtr parent)
@@ -181,6 +203,10 @@ namespace LikeWater.WinHCtl.WinApi
             try
             {
                 EnumChildWindows(parent, EnumChildWindowsCallback, GCHandle.ToIntPtr(listHandle));
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
             }
             finally
             {
@@ -193,16 +219,23 @@ namespace LikeWater.WinHCtl.WinApi
 
         private static string GetTextX(IntPtr handle)
         {
-            const uint WM_GETTEXTLENGTH = 0x000E;
-            const uint WM_GETTEXT = 0x000D;
+            try
+            {
+                const uint WM_GETTEXTLENGTH = 0x000E;
+                const uint WM_GETTEXT = 0x000D;
 
-            var sbi = new StringBuilder(100);
-            var length = (int)SendMessage(handle, WM_GETTEXTLENGTH, IntPtr.Zero, null);
-            var sb = new StringBuilder(length + 1);
-            GetClassName(handle, sbi, sbi.Capacity);
-            SendMessage(handle, WM_GETTEXT, (IntPtr)sb.Capacity, sb);
+                var sbi = new StringBuilder(100);
+                var length = (int)SendMessage(handle, WM_GETTEXTLENGTH, IntPtr.Zero, null);
+                var sb = new StringBuilder(length + 1);
+                GetClassName(handle, sbi, sbi.Capacity);
+                SendMessage(handle, WM_GETTEXT, (IntPtr)sb.Capacity, sb);
 
-            return sb.ToString();
+                return sb.ToString();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
         public string GetText(string windowTitle, int index)
         {

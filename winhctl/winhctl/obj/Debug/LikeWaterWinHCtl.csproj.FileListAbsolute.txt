@@ -4,12 +4,3 @@ C:\repositorio\winhctl\winhctl\winhctl\obj\Debug\LikeWaterWinHCtl.csprojAssembly
 C:\repositorio\winhctl\winhctl\winhctl\obj\Debug\LikeWaterWinHCtl.csproj.CoreCompileInputs.cache
 C:\repositorio\winhctl\winhctl\winhctl\obj\Debug\winhctl.dll
 C:\repositorio\winhctl\winhctl\winhctl\obj\Debug\winhctl.pdb
-C:\repositorios\winhctl\winhctl\winhctl\bin\Debug\winhctl.dll
-C:\repositorios\winhctl\winhctl\winhctl\bin\Debug\winhctl.pdb
-C:\repositorios\winhctl\winhctl\winhctl\bin\Debug\RegMan.dll
-C:\repositorios\winhctl\winhctl\winhctl\bin\Debug\RegMan.pdb
-C:\repositorios\winhctl\winhctl\winhctl\obj\Debug\LikeWaterWinHCtl.csprojAssemblyReference.cache
-C:\repositorios\winhctl\winhctl\winhctl\obj\Debug\LikeWaterWinHCtl.csproj.CoreCompileInputs.cache
-C:\repositorios\winhctl\winhctl\winhctl\obj\Debug\LikeWaterWinHCtl.csproj.CopyComplete
-C:\repositorios\winhctl\winhctl\winhctl\obj\Debug\winhctl.dll
-C:\repositorios\winhctl\winhctl\winhctl\obj\Debug\winhctl.pdb
