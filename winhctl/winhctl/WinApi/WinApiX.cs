@@ -63,6 +63,8 @@ namespace LikeWater.WinHCtl.WinApi
         [DllImport("user32.dll", EntryPoint = "SetCursorPos")]
         private static extern int SetCursorPos(int x, int y);
 
+        [DllImport("user32.dll", EntryPoint = "mouse_event")]
+        public static extern void mouse_event(MouseEventFlag dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
 
         private struct RECT
         {
@@ -70,6 +72,88 @@ namespace LikeWater.WinHCtl.WinApi
             public int Top;
             public int Right;
             public int Bottom;
+        }
+
+        public enum MouseEventFlag : uint
+        {
+            Move = 0x0001,
+            LeftDown = 0x0002,
+            LeftUp = 0x0004,
+            RightDown = 0x0008,
+            RightUp = 0x0010,
+            MiddleDown = 0x0020,
+            MiddleUp = 0x0040,
+            XDown = 0x0080,
+            XUp = 0x0100,
+            Wheel = 0x0800,
+            VirtualDesk = 0x4000,
+            Absolute = 0x8000
+        }
+
+        public enum EventType
+        {
+            Down,
+            Up,
+            Click
+        }
+
+
+        public enum KeyEventFlag : int
+        {
+            Down = 0x0000,
+            Up = 0x0002,
+        }
+
+        private void virtual_MouseMove(Point p)
+        {
+            SetCursorPos(p.X, p.Y);
+        }
+
+        private void virtual_MouseEvent(MouseButtons button, EventType type = EventType.Click, bool doubleClick = false)
+
+        {
+
+            MouseEventFlag flagUp = new MouseEventFlag();
+
+            MouseEventFlag flagDown = new MouseEventFlag();
+
+            switch (button)
+            {
+                case MouseButtons.Left:
+                    flagUp = MouseEventFlag.LeftUp;
+                    flagDown = MouseEventFlag.LeftDown;
+                    break;
+                case MouseButtons.Middle:
+                    flagUp = MouseEventFlag.MiddleUp;
+                    flagDown = MouseEventFlag.MiddleDown;
+                    break;
+                case MouseButtons.Right:
+                    flagUp = MouseEventFlag.RightUp;
+                    flagDown = MouseEventFlag.RightDown;
+                    break;
+                default://defaul left button
+                    flagUp = MouseEventFlag.LeftUp;
+                    flagDown = MouseEventFlag.LeftDown;
+                    break;
+            }
+
+            if (type == EventType.Click)
+            {
+                int count = doubleClick == false ? 1 : 2;//check
+                for (int i = 0; i < count; i++)
+                {
+                    mouse_event(flagUp, 0, 0, 0, 0);
+                    mouse_event(flagDown, 0, 0, 0, 0);
+                }
+            }
+
+            else
+            {
+                if (type == EventType.Down)
+                    mouse_event(flagDown, 0, 0, 0, 0);
+                else if (type == EventType.Up)
+                    mouse_event(flagUp, 0, 0, 0, 0);
+            }
         }
 
         private delegate bool EnumWindowProc(IntPtr hWnd, IntPtr parameter);
