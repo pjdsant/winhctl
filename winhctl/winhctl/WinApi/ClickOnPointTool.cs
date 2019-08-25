@@ -41,7 +41,7 @@ namespace LikeWater.WinHCtl.WinApi
 #pragma warning restore 649
 
 
-        public static void ClickOnPoint(IntPtr wndHandle, Point clientPoint)
+        public void ClickOnPoint(IntPtr wndHandle, Point clientPoint)
         {
             var oldPos = Cursor.Position;
 

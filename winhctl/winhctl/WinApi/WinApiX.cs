@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace LikeWater.WinHCtl.WinApi
@@ -52,6 +53,24 @@ namespace LikeWater.WinHCtl.WinApi
         [DllImport("user32.dll")]
         private static extern IntPtr SendMessage(IntPtr hWnd, int Msg,IntPtr wParam, IntPtr lParam);
 
+        [DllImport("user32.dll", SetLastError = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool GetWindowRect(IntPtr hWnd, ref RECT lpRect);
+
+        [DllImport("user32.dll")]
+        static extern bool ClientToScreen(IntPtr hWnd, ref Point lpPoint);
+
+        [DllImport("user32.dll", EntryPoint = "SetCursorPos")]
+        private static extern int SetCursorPos(int x, int y);
+
+
+        private struct RECT
+        {
+            public int Left;
+            public int Top;
+            public int Right;
+            public int Bottom;
+        }
 
         private delegate bool EnumWindowProc(IntPtr hWnd, IntPtr parameter);
 
@@ -198,28 +217,44 @@ namespace LikeWater.WinHCtl.WinApi
         }
 
         private Button button1 = new Button();
-        public void SetListItem(string windowTitle, int index, int item)
+        public void DoubleClickListBox(string windowTitle, int index)
         {
             try
             {
                 var windowHWnd = FindWindowByCaption(IntPtr.Zero, windowTitle);
                 var childWindows = GetChildWindows(windowHWnd);
                 IntPtr hWnd = childWindows.ToArray()[index];
+                RECT rct;
+                int width = 0;
+                int height = 0;
+                int x = 0;
+                int y = 0;
+                Point point;
+                bool coordinatesFound = false;
+
+                rct = new RECT();
+                GetWindowRect(hWnd, ref rct);
+
+                width = rct.Right - rct.Left;
+                height = rct.Bottom - rct.Top;
+                point = new Point();
+                x = (width / 2);
+                y = (height / 2);
 
 
-                //IntPtr hWnd = (IntPtr)FindWindow("notepad.exe", null);
-                const int WM_RBUTTONDOWN = 0x0204;
+                coordinatesFound = ClientToScreen(hWnd, ref point);
 
-                SetForegroundWindow(hWnd);
-
-                var screenPoint = button1.PointToScreen(new Point(1210, 460));
-                var handle = WindowFromPoint(screenPoint);
-
-                if (handle != IntPtr.Zero)
+                if (coordinatesFound == true)
                 {
-                    SendMessage(handle, WM_RBUTTONDOWN, IntPtr.Zero, IntPtr.Zero);
-                    SendMessage(handle, WM_RBUTTONDOWN, IntPtr.Zero, IntPtr.Zero);
+                    SetCursorPos(point.X + x, point.Y + y);
                 }
+
+
+                virtual_MouseMove(point);
+                virtual_MouseEvent(MouseButtons.Left);
+                virtual_MouseEvent(MouseButtons.Left, type: EventType.Down);
+                virtual_MouseEvent(MouseButtons.Left, type: EventType.Up);
+                Thread.Sleep(200);
 
 
             }
