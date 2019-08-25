@@ -325,7 +325,6 @@ namespace LikeWater.WinHCtl.WinApi
                 x = (width / 2);
                 y = (height / 2);
 
-
                 coordinatesFound = ClientToScreen(hWnd, ref point);
 
                 if (coordinatesFound == true)
@@ -333,14 +332,11 @@ namespace LikeWater.WinHCtl.WinApi
                     SetCursorPos(point.X + x, point.Y + y);
                 }
 
-
                 virtual_MouseMove(point);
                 virtual_MouseEvent(MouseButtons.Left);
                 virtual_MouseEvent(MouseButtons.Left, type: EventType.Down);
                 virtual_MouseEvent(MouseButtons.Left, type: EventType.Up);
                 Thread.Sleep(200);
-
-
             }
             catch (Exception e)
             {
