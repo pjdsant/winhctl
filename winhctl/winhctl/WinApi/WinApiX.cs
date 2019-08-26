@@ -40,16 +40,16 @@ namespace LikeWater.WinHCtl.WinApi
         private static extern IntPtr SendRefMessage(IntPtr hWnd, uint Msg, int wParam, StringBuilder lParam);
 
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = false, EntryPoint = "SendMessage")]
-        static extern IntPtr SendMessageList(IntPtr hWnd, uint Msg, UIntPtr wParam, IntPtr lParam);
+        private static extern IntPtr SendMessageList(IntPtr hWnd, uint Msg, UIntPtr wParam, IntPtr lParam);
 
         [DllImport("user32.dll", EntryPoint = "WindowFromPoint",CharSet = CharSet.Auto, ExactSpelling = true)]
-        public static extern IntPtr WindowFromPoint(Point point);
+        private static extern IntPtr WindowFromPoint(Point point);
 
         [DllImport("user32.dll")]
         private static extern bool SetForegroundWindow(IntPtr hWnd);
 
         [DllImport("user32.dll", SetLastError = true)]
-        static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+        private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
         [DllImport("user32.dll")]
         private static extern IntPtr SendMessage(IntPtr hWnd, int Msg,IntPtr wParam, IntPtr lParam);
@@ -59,13 +59,13 @@ namespace LikeWater.WinHCtl.WinApi
         private static extern bool GetWindowRect(IntPtr hWnd, ref RECT lpRect);
 
         [DllImport("user32.dll")]
-        static extern bool ClientToScreen(IntPtr hWnd, ref Point lpPoint);
+        private static extern bool ClientToScreen(IntPtr hWnd, ref Point lpPoint);
 
         [DllImport("user32.dll", EntryPoint = "SetCursorPos")]
         private static extern int SetCursorPos(int x, int y);
 
         [DllImport("user32.dll", EntryPoint = "mouse_event")]
-        public static extern void mouse_event(MouseEventFlag dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
+        private static extern void mouse_event(MouseEventFlag dwFlags, int dx, int dy, int cButtons, int dwExtraInfo);
 
         private struct RECT
         {
@@ -75,7 +75,7 @@ namespace LikeWater.WinHCtl.WinApi
             public int Bottom;
         }
 
-        public enum MouseEventFlag : uint
+        private enum MouseEventFlag : uint
         {
             Move = 0x0001,
             LeftDown = 0x0002,
@@ -91,7 +91,7 @@ namespace LikeWater.WinHCtl.WinApi
             Absolute = 0x8000
         }
 
-        public enum EventType
+        private enum EventType
         {
             Down,
             Up,
@@ -99,7 +99,7 @@ namespace LikeWater.WinHCtl.WinApi
         }
 
 
-        public enum KeyEventFlag : int
+        private enum KeyEventFlag : int
         {
             Down = 0x0000,
             Up = 0x0002,
@@ -107,14 +107,15 @@ namespace LikeWater.WinHCtl.WinApi
 
         private void virtual_MouseMove(Point p)
         {
+            RegistryManager rm = new RegistryManager();
             try
             {
                 SetCursorPos(p.X, p.Y);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-
-                throw new Exception(e.Message); ;
+                rm.SetAlarm("[Erro-1000]WinApiX.virtual_MouseMove --> " + ex.Message.ToString());
+                throw new Exception(ex.Message); ;
             }
            
         }
@@ -122,6 +123,7 @@ namespace LikeWater.WinHCtl.WinApi
         private void virtual_MouseEvent(MouseButtons button, EventType type = EventType.Click, bool doubleClick = false)
 
         {
+            RegistryManager rm = new RegistryManager();
             try
             {
                 MouseEventFlag flagUp = new MouseEventFlag();
@@ -166,9 +168,10 @@ namespace LikeWater.WinHCtl.WinApi
                         mouse_event(flagUp, 0, 0, 0, 0);
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw new Exception(e.Message);
+                rm.SetAlarm("[Erro-1001]WinApiX.virtual_MouseEvent --> " + ex.Message.ToString());
+                throw new Exception(ex.Message);
             }
         }
 
@@ -178,7 +181,7 @@ namespace LikeWater.WinHCtl.WinApi
         {
             var gcHandle = GCHandle.FromIntPtr(pointer);
             var list = gcHandle.Target as List<IntPtr>;
-
+            RegistryManager rm = new RegistryManager();
             try
             {
                 if (list == null)
@@ -190,9 +193,13 @@ namespace LikeWater.WinHCtl.WinApi
 
                 return true;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw new Exception(e.Message);
+                rm.SetAlarm("[Erro-1002]WinApiX.EnumChildWindowsCallback --> " +
+                "Params: handler: " + handle.ToString() +
+                "pointer: " + pointer.ToString() +
+                "Message Exception: " + ex.Message.ToString());
+                throw new Exception(ex.Message);
             }
         }
 
@@ -200,14 +207,18 @@ namespace LikeWater.WinHCtl.WinApi
         {
             var result = new List<IntPtr>();
             var listHandle = GCHandle.Alloc(result);
+            RegistryManager rm = new RegistryManager();
 
             try
             {
                 EnumChildWindows(parent, EnumChildWindowsCallback, GCHandle.ToIntPtr(listHandle));
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw new Exception(e.Message);
+                rm.SetAlarm("[Erro-1003]WinApiX.GetChildWindows --> " +
+                "Params: parent: " + parent.ToString() +
+                "Message Exception: " + ex.Message.ToString());
+                throw new Exception(ex.Message);
             }
             finally
             {
@@ -220,6 +231,8 @@ namespace LikeWater.WinHCtl.WinApi
 
         private static string GetTextX(IntPtr handle)
         {
+            RegistryManager rm = new RegistryManager();
+
             try
             {
                 const uint WM_GETTEXTLENGTH = 0x000E;
@@ -233,33 +246,37 @@ namespace LikeWater.WinHCtl.WinApi
 
                 return sb.ToString();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw new Exception(e.Message);
+                rm.SetAlarm("[Erro-1004]WinApiX.GetTextX --> " +
+                "Params: handler: " + handle.ToString() +
+                "Message Exception: " + ex.Message.ToString());
+                throw new Exception(ex.Message);
             }
         }
         public string GetText(string windowTitle, int index)
         {
             var sb = new StringBuilder();
+            RegistryManager rm = new RegistryManager();
             try
             {
                 var windowHWnd = FindWindowByCaption(IntPtr.Zero, windowTitle);
                 var childWindows = GetChildWindows(windowHWnd);
                 var childWindowText = GetTextX(childWindows.ToArray()[index]);
                 sb.Append(childWindowText);
-
-                RegistryManager rm = new RegistryManager();
-                rm.WriteRegistryEvents("GetText");
-
                 return sb.ToString();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw new Exception(e.Message);
+                rm.SetAlarm("[Erro-1005]WinApiX.GetText --> " +
+                    "Params: windowTitle: " + windowTitle +
+                    " Index: " + index.ToString() +
+                    "Message Exception: " + ex.Message.ToString());
+                throw new Exception(ex.Message);
             }
         }
 
-        public void SendText(string windowTitle, int index, string message)
+        private void SendText(string windowTitle, int index, string message)
         {
             try
             {
@@ -271,7 +288,7 @@ namespace LikeWater.WinHCtl.WinApi
                 SendMessage(childWindows.ToArray()[index], WM_SETTEXT, 0, message);
 
                 RegistryManager rm = new RegistryManager();
-                rm.WriteRegistryEvents("SendText");
+                rm.WriteRegistryEvents("SendText", 1);
             }
 
             catch (Exception e)
@@ -281,7 +298,7 @@ namespace LikeWater.WinHCtl.WinApi
         }
 
 
-        public void SendClick(string windowTitle, int index)
+        private void SendClick(string windowTitle, int index)
         {
             try
             {
@@ -292,7 +309,7 @@ namespace LikeWater.WinHCtl.WinApi
 
                 RegistryManager rm = new RegistryManager();
                 rm.ReadRegistryEvents("SendClick");
-                rm.WriteRegistryEvents("SendClick");
+                rm.WriteRegistryEvents("SendClick", 1);
             }
             catch (Exception e)
             {
@@ -301,7 +318,7 @@ namespace LikeWater.WinHCtl.WinApi
         }
 
 
-        public string GetComboItem(string windowTitle, int index, int item)
+        private string GetComboItem(string windowTitle, int index, int item)
         {
             try
             {
@@ -319,7 +336,7 @@ namespace LikeWater.WinHCtl.WinApi
             }
         }
 
-        public void SetComboItem(string windowTitle, int index, int item)
+        private void SetComboItem(string windowTitle, int index, int item)
         {
             try
             {
@@ -334,9 +351,10 @@ namespace LikeWater.WinHCtl.WinApi
             }
         }
 
-        private Button button1 = new Button();
-        public void SendDoubleClickListBox(string windowTitle, int index)
+        private void SendDoubleClickListBox(string windowTitle, int index)
         {
+            RegistryManager rm = new RegistryManager();
+
             try
             {
                 var windowHWnd = FindWindowByCaption(IntPtr.Zero, windowTitle);
@@ -372,20 +390,27 @@ namespace LikeWater.WinHCtl.WinApi
                 virtual_MouseEvent(MouseButtons.Left, type: EventType.Up);
                 Thread.Sleep(200);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw new Exception(e.Message);
+                rm.SetAlarm("[Erro-1006]WinApiX.SendDoubleClickListBox --> " +
+                    "Params: windowTitle: " + windowTitle +
+                    " Index: " + index.ToString() + 
+                    "Message Exception: " + ex.Message.ToString() );
+                throw new Exception(ex.Message);
             }
         }
 
         public string GetPhonesGEO()
         {
+            RegistryManager registryManager = new RegistryManager();
+
+            var phones = "";
+            var phonesMainTitle = "";
+            int countGeoFoneTotal = 0;
+            string alarmMessage = "";
+
             try
             {
-                RegistryManager registryManager = new RegistryManager();
-
-                var phones = "";
-                var phonesMainTitle = "";
                 var mainTitle = registryManager.ReadRegistryValue("GEO_MainTitle");
                 var childTitle = registryManager.ReadRegistryValue("GEO_ChildTitle");
                 int idxPhone1 = Int32.Parse(registryManager.ReadRegistryValue("GEO_IndexPhone1"));
@@ -403,31 +428,94 @@ namespace LikeWater.WinHCtl.WinApi
                 var phone4A = Regex.Replace(GetText(childTitle, idxPhone4A), "[^0-9]", "");
                 var phone4 = phone4A + Regex.Replace(GetText(childTitle, idxPhone4), "[^0-9]", "");
 
-                if (phone1.Substring(0, 1) == "0") { phone1 = phone1.Substring(1, phone1.Length - 1); }
-                if (phone2.Substring(0, 1) == "0") { phone2 = phone2.Substring(1, phone2.Length - 1); }
-                if (phone3.Substring(0, 1) == "0") { phone3 = phone3.Substring(1, phone3.Length - 1); }
-                if (phone4.Substring(0, 1) == "0") { phone4 = phone4.Substring(1, phone4.Length - 1); }
+                phone1 = phone1.Trim();
 
-
-                phonesMainTitle = phone1 + "," + phone2 + "," + phone3;
-
-                if (phonesMainTitle.Contains(phone4))
+                if (phone1 == "" || phone1 == null || phone1 == ",")
                 {
-                    phones = phone1 + "," + phone2 + "," + phone3;
+                    alarmMessage = "[Erro-2001]GetPhonesGEO - Phone1 null or Empty - ";
+                    
                 }
                 else
                 {
-                    phones = phone1+ "," + phone2 + "," + phone3 + "," + phone4;
+                    countGeoFoneTotal++;
+                    registryManager.WriteRegistryEvents("GeoFoneComCount", 1);
+                    if (phone1.Substring(0, 1) == "0") { phone1 = phone1.Substring(1, phone1.Length - 1); }
+                    phonesMainTitle = phone1 + ",";
                 }
 
+                if (phone2 == "" || phone2 == null || phone2 == ",")
+                {
+                    alarmMessage = alarmMessage +  "[Erro-2002]GetPhonesGEO - Phone2 null or Empty - ";
+                    
+                }
+                else
+                {
+                    countGeoFoneTotal++;
+                    registryManager.WriteRegistryEvents("GeoFoneResCount", 1);
+                    if (phone2.Substring(0, 1) == "0") { phone2 = phone2.Substring(1, phone2.Length - 1); }
+                    phonesMainTitle = phonesMainTitle + phone2 + ",";
+                }
+
+                if (phone3 == "" || phone3 == null || phone3 == ",")
+                {
+                    alarmMessage = alarmMessage + "[Erro-2003]GetPhonesGEO - Phone3 null or Empty - ";
+                }
+                else
+                {
+                    countGeoFoneTotal++;
+                    registryManager.WriteRegistryEvents("GeoFoneCelCount", 1);
+                    if (phone3.Substring(0, 1) == "0") { phone3 = phone3.Substring(1, phone3.Length - 1); }
+                    phonesMainTitle = phonesMainTitle + phone3 + ",";
+                }
+
+                if (phone4 == "" || phone4 == null || phone4 == ",")
+                {
+                    if (phone4A == "" || phone4A == null)
+                    {
+                        alarmMessage = alarmMessage + "[Erro-2005]GetPhonesGEO - Phone4A null or Empty - ";
+                    }
+                   
+                    alarmMessage = alarmMessage +  "[Erro-2004]GetPhonesGEO - Phone4 null or Empty - ";
+
+                    phones = phonesMainTitle;
+                }
+                else
+                {
+                    countGeoFoneTotal++;
+                    countGeoFoneTotal++;
+                    registryManager.WriteRegistryEvents("GeoFoneSegTelaCount", 2);
+
+                    if (phone4.Substring(0, 1) == "0") { phone4 = phone4.Substring(1, phone4.Length - 1); }
+
+                    if (phonesMainTitle.Contains(phone4))
+                    {
+                        phones = phonesMainTitle;
+                    }
+                    else
+                    {
+                        phones = phonesMainTitle + phone4;
+                    }
+                }
+
+                if (countGeoFoneTotal > 0)
+                {
+                    registryManager.WriteRegistryEvents("GeoTotalFoneCount", countGeoFoneTotal);
+                }
                 List<string> phoneList = phones.ToLower().Split(',').Distinct().ToList();
                 phones = string.Join(",", phoneList);
 
+                if (!String.IsNullOrWhiteSpace(alarmMessage))
+                {
+                    registryManager.SetAlarm(alarmMessage);
+;                }
+
                 return phones;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                throw new Exception(e.Message);
+                registryManager.SetAlarm(alarmMessage + " -->" +  ex.Message.ToString());
+
+                throw new Exception(ex.Message);
             }
            
         }
