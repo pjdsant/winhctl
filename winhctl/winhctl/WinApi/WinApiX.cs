@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -334,7 +335,7 @@ namespace LikeWater.WinHCtl.WinApi
         }
 
         private Button button1 = new Button();
-        public void DoubleClickListBox(string windowTitle, int index)
+        public void SendDoubleClickListBox(string windowTitle, int index)
         {
             try
             {
@@ -377,6 +378,59 @@ namespace LikeWater.WinHCtl.WinApi
             }
         }
 
+        public string GetPhonesGEO()
+        {
+            try
+            {
+                RegistryManager registryManager = new RegistryManager();
+
+                var phones = "";
+                var phonesMainTitle = "";
+                var mainTitle = registryManager.ReadRegistryValue("GEO_MainTitle");
+                var childTitle = registryManager.ReadRegistryValue("GEO_ChildTitle");
+                int idxPhone1 = Int32.Parse(registryManager.ReadRegistryValue("GEO_IndexPhone1"));
+                int idxPhone2 = Int32.Parse(registryManager.ReadRegistryValue("GEO_IndexPhone2"));
+                int idxPhone3 = Int32.Parse(registryManager.ReadRegistryValue("GEO_IndexPhone3"));
+                int idxPhone4 = Int32.Parse(registryManager.ReadRegistryValue("GEO_IndexPhone4"));
+                int idxPhone4A = Int32.Parse(registryManager.ReadRegistryValue("GEO_IndexPhone4A"));
+                int idxPhone4L = Int32.Parse(registryManager.ReadRegistryValue("GEO_IndexPhone4L"));
+                var phone1 = Regex.Replace(GetText(mainTitle, idxPhone1),"[^0-9]", "");
+                var phone2 = Regex.Replace(GetText(mainTitle, idxPhone2),"[^0-9]", "");
+                var phone3 = Regex.Replace(GetText(mainTitle, idxPhone3),"[^0-9]", "");
+                Thread.Sleep(200);
+                SendDoubleClickListBox(mainTitle, idxPhone4L);
+                Thread.Sleep(200);
+                var phone4A = Regex.Replace(GetText(childTitle, idxPhone4A), "[^0-9]", "");
+                var phone4 = phone4A + Regex.Replace(GetText(childTitle, idxPhone4), "[^0-9]", "");
+
+                if (phone1.Substring(0, 1) == "0") { phone1 = phone1.Substring(1, phone1.Length - 1); }
+                if (phone2.Substring(0, 1) == "0") { phone2 = phone2.Substring(1, phone2.Length - 1); }
+                if (phone3.Substring(0, 1) == "0") { phone3 = phone3.Substring(1, phone3.Length - 1); }
+                if (phone4.Substring(0, 1) == "0") { phone4 = phone4.Substring(1, phone4.Length - 1); }
+
+
+                phonesMainTitle = phone1 + "," + phone2 + "," + phone3;
+
+                if (phonesMainTitle.Contains(phone4))
+                {
+                    phones = phone1 + "," + phone2 + "," + phone3;
+                }
+                else
+                {
+                    phones = phone1+ "," + phone2 + "," + phone3 + "," + phone4;
+                }
+
+                List<string> phoneList = phones.ToLower().Split(',').Distinct().ToList();
+                phones = string.Join(",", phoneList);
+
+                return phones;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+           
+        }
         
     }
 }
