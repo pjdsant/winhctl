@@ -411,22 +411,61 @@ namespace LikeWater.WinHCtl.WinApi
 
             try
             {
+                
+
                 var mainTitle = registryManager.ReadRegistryValue("GEO_MainTitle");
                 var childTitle = registryManager.ReadRegistryValue("GEO_ChildTitle");
-                int idxPhone1 = Int32.Parse(registryManager.ReadRegistryValue("GEO_IndexPhone1"));
-                int idxPhone2 = Int32.Parse(registryManager.ReadRegistryValue("GEO_IndexPhone2"));
-                int idxPhone3 = Int32.Parse(registryManager.ReadRegistryValue("GEO_IndexPhone3"));
-                int idxPhone4 = Int32.Parse(registryManager.ReadRegistryValue("GEO_IndexPhone4"));
-                int idxPhone4A = Int32.Parse(registryManager.ReadRegistryValue("GEO_IndexPhone4A"));
-                int idxPhone4L = Int32.Parse(registryManager.ReadRegistryValue("GEO_IndexPhone4L"));
-                var phone1 = Regex.Replace(GetText(mainTitle, idxPhone1),"[^0-9]", "");
-                var phone2 = Regex.Replace(GetText(mainTitle, idxPhone2),"[^0-9]", "");
-                var phone3 = Regex.Replace(GetText(mainTitle, idxPhone3),"[^0-9]", "");
-                Thread.Sleep(200);
-                SendDoubleClickListBox(mainTitle, idxPhone4L);
-                Thread.Sleep(200);
-                var phone4A = Regex.Replace(GetText(childTitle, idxPhone4A), "[^0-9]", "");
-                var phone4 = phone4A + Regex.Replace(GetText(childTitle, idxPhone4), "[^0-9]", "");
+
+                int idxPhone1;
+                int idxPhone2;
+                int idxPhone3;
+                int idxPhone4;
+                int idxPhone4A;
+                int idxPhone4L;
+                var phone1 ="";
+                var phone2 = "";
+                var phone3 = "";
+                var phone4 = "";
+                var phone4A = "";
+
+                if (!ScreenActive(mainTitle) && !ScreenActive(childTitle))
+                {
+                    return "";
+                }
+
+                if (ScreenActive(childTitle))
+                {
+                    idxPhone1 = 12;// Int32.Parse(registryManager.ReadRegistryValue("GEO_IndexPhone1"));
+                    idxPhone2 = 11;
+                    idxPhone3 = 10;
+                    idxPhone4 = 3;
+                    idxPhone4A = 4;
+
+                    phone1 = Regex.Replace(GetText(childTitle, idxPhone1), "[^0-9]", "");
+                    phone2 = Regex.Replace(GetText(childTitle, idxPhone2), "[^0-9]", "");
+                    phone3 = Regex.Replace(GetText(childTitle, idxPhone3), "[^0-9]", "");
+
+                }
+                else
+                {
+                    idxPhone1 = Int32.Parse(registryManager.ReadRegistryValue("GEO_IndexPhone1"));
+                    idxPhone2 = Int32.Parse(registryManager.ReadRegistryValue("GEO_IndexPhone2"));
+                    idxPhone3 = Int32.Parse(registryManager.ReadRegistryValue("GEO_IndexPhone3"));
+                    idxPhone4 = Int32.Parse(registryManager.ReadRegistryValue("GEO_IndexPhone4"));
+                    idxPhone4A = Int32.Parse(registryManager.ReadRegistryValue("GEO_IndexPhone4A"));
+                    idxPhone4L = Int32.Parse(registryManager.ReadRegistryValue("GEO_IndexPhone4L"));
+
+                    phone1 = Regex.Replace(GetText(mainTitle, idxPhone1), "[^0-9]", "");
+                    phone2 = Regex.Replace(GetText(mainTitle, idxPhone2), "[^0-9]", "");
+                    phone3= Regex.Replace(GetText(mainTitle, idxPhone3), "[^0-9]", "");
+
+                    Thread.Sleep(200);
+                    SendDoubleClickListBox(mainTitle, idxPhone4L);
+                    Thread.Sleep(200);
+                }
+
+                phone4A = Regex.Replace(GetText(childTitle, idxPhone4A), "[^0-9]", "");
+                phone4 = phone4A + Regex.Replace(GetText(childTitle, idxPhone4), "[^0-9]", "");
 
                 phone1 = phone1.Trim();
 
@@ -518,6 +557,20 @@ namespace LikeWater.WinHCtl.WinApi
                 throw new Exception(ex.Message);
             }
            
+        }
+
+        bool ScreenActive(string windowTitle)
+        {
+            bool result = false;
+
+            IntPtr retVal = FindWindowByCaption(IntPtr.Zero, windowTitle);
+
+            if (retVal != null && retVal != new IntPtr(0))
+            {
+                result = true;
+            }
+
+            return result;
         }
         
     }
