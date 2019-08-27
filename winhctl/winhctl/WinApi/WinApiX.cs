@@ -408,39 +408,37 @@ namespace LikeWater.WinHCtl.WinApi
             var phonesMainTitle = "";
             int countGeoFoneTotal = 0;
             string alarmMessage = "";
+            var mainTitle ="";
+            var childTitle = "";
+            int idxPhone1;
+            int idxPhone2;
+            int idxPhone3;
+            int idxPhone4;
+            int idxPhone4A;
+            int idxPhone4L;
+            var phone1 = "";
+            var phone2 = "";
+            var phone3 = "";
+            var phone4 = "";
+            var phone4A = "";
 
             try
             {
-                
-
-                var mainTitle = registryManager.ReadRegistryValue("GEO_MainTitle");
-                var childTitle = registryManager.ReadRegistryValue("GEO_ChildTitle");
-
-                int idxPhone1;
-                int idxPhone2;
-                int idxPhone3;
-                int idxPhone4;
-                int idxPhone4A;
-                int idxPhone4L;
-                var phone1 ="";
-                var phone2 = "";
-                var phone3 = "";
-                var phone4 = "";
-                var phone4A = "";
+                mainTitle = registryManager.ReadRegistryValue("GEO_MainTitle");
+                childTitle = registryManager.ReadRegistryValue("GEO_ChildTitle");
 
                 if (!ScreenActive(mainTitle) && !ScreenActive(childTitle))
                 {
                     return "";
                 }
 
-                if (ScreenActive(childTitle))
+                if (ScreenActive(childTitle)) //12,11,10,3,4
                 {
-                    idxPhone1 = 12;// Int32.Parse(registryManager.ReadRegistryValue("GEO_IndexPhone1"));
-                    idxPhone2 = 11;
-                    idxPhone3 = 10;
-                    idxPhone4 = 3;
-                    idxPhone4A = 4;
-
+                    idxPhone1 = Int32.Parse(registryManager.ReadRegistryValue("GEOChild_IndexPhone1")); 
+                    idxPhone2 = Int32.Parse(registryManager.ReadRegistryValue("GEOChild_IndexPhone2"));
+                    idxPhone3 = Int32.Parse(registryManager.ReadRegistryValue("GEOChild_IndexPhone3"));
+                    idxPhone4 = Int32.Parse(registryManager.ReadRegistryValue("GEOChild_IndexPhone4"));
+                    idxPhone4A = Int32.Parse(registryManager.ReadRegistryValue("GEOChild_IndexPhone4A"));
                     phone1 = Regex.Replace(GetText(childTitle, idxPhone1), "[^0-9]", "");
                     phone2 = Regex.Replace(GetText(childTitle, idxPhone2), "[^0-9]", "");
                     phone3 = Regex.Replace(GetText(childTitle, idxPhone3), "[^0-9]", "");
@@ -448,12 +446,12 @@ namespace LikeWater.WinHCtl.WinApi
                 }
                 else
                 {
-                    idxPhone1 = Int32.Parse(registryManager.ReadRegistryValue("GEO_IndexPhone1"));
-                    idxPhone2 = Int32.Parse(registryManager.ReadRegistryValue("GEO_IndexPhone2"));
-                    idxPhone3 = Int32.Parse(registryManager.ReadRegistryValue("GEO_IndexPhone3"));
-                    idxPhone4 = Int32.Parse(registryManager.ReadRegistryValue("GEO_IndexPhone4"));
-                    idxPhone4A = Int32.Parse(registryManager.ReadRegistryValue("GEO_IndexPhone4A"));
-                    idxPhone4L = Int32.Parse(registryManager.ReadRegistryValue("GEO_IndexPhone4L"));
+                    idxPhone1 = Int32.Parse(registryManager.ReadRegistryValue("GEOMain_IndexPhone1"));
+                    idxPhone2 = Int32.Parse(registryManager.ReadRegistryValue("GEOMain_IndexPhone2"));
+                    idxPhone3 = Int32.Parse(registryManager.ReadRegistryValue("GEOMain_IndexPhone3"));
+                    idxPhone4 = Int32.Parse(registryManager.ReadRegistryValue("GEOMain_IndexPhone4"));
+                    idxPhone4A = Int32.Parse(registryManager.ReadRegistryValue("GEOMain_IndexPhone4A"));
+                    idxPhone4L = Int32.Parse(registryManager.ReadRegistryValue("GEOMain_IndexPhone4L"));
 
                     phone1 = Regex.Replace(GetText(mainTitle, idxPhone1), "[^0-9]", "");
                     phone2 = Regex.Replace(GetText(mainTitle, idxPhone2), "[^0-9]", "");
