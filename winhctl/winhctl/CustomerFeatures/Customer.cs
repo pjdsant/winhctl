@@ -18,9 +18,10 @@ namespace LikeWater.WinHCtl.CustomerFeatures
 
         public string GetPhones(string winTitle, int idxPhoneOne, int idxPhoneTwo, int idxPhoneThree, string chwinTitle, int idxPhoneFourth)
         {
-            var retPhones = "";
+            
             try
             {
+                var retPhones = "";
                 WinApiX winApi = new WinApiX();
 
                 var firstPhone = winApi.GetText(winTitle, idxPhoneOne);
@@ -37,6 +38,7 @@ namespace LikeWater.WinHCtl.CustomerFeatures
                     "," + Regex.Replace(secondPhone, "[^0-9]", "") +
                     "," + Regex.Replace(thirdPhone, "[^0-9]", "") +
                     "," + Regex.Replace(fourthPhone, "[^0-9]", "");
+                return retPhones;
             }
             catch (System.Exception)
             {
@@ -44,7 +46,7 @@ namespace LikeWater.WinHCtl.CustomerFeatures
                 throw;
             }
             
-            return retPhones;
+           
 
         }
 

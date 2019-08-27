@@ -3,11 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms;
+
+[assembly: SuppressIldasmAttribute()]
 
 namespace LikeWater.WinHCtl.WinApi
 {
@@ -105,7 +108,7 @@ namespace LikeWater.WinHCtl.WinApi
             Up = 0x0002,
         }
 
-        private void virtual_MouseMove(Point p)
+        private void Virtual_MouseMove(Point p)
         {
             RegistryManager rm = new RegistryManager();
             try
@@ -114,13 +117,13 @@ namespace LikeWater.WinHCtl.WinApi
             }
             catch (Exception ex)
             {
-                rm.SetAlarm("[Erro-1000]WinApiX.virtual_MouseMove --> " + ex.Message.ToString());
+                rm.SetAlarm("[Erro-1000]WinApiX.Virtual_MouseMove --> " + ex.Message.ToString());
                 throw new Exception(ex.Message); ;
             }
            
         }
 
-        private void virtual_MouseEvent(MouseButtons button, EventType type = EventType.Click, bool doubleClick = false)
+        private void Virtual_MouseEvent(MouseButtons button, EventType type = EventType.Click, bool doubleClick = false)
 
         {
             RegistryManager rm = new RegistryManager();
@@ -170,7 +173,7 @@ namespace LikeWater.WinHCtl.WinApi
             }
             catch (Exception ex)
             {
-                rm.SetAlarm("[Erro-1001]WinApiX.virtual_MouseEvent --> " + ex.Message.ToString());
+                rm.SetAlarm("[Erro-1001]WinApiX.Virtual_MouseEvent --> " + ex.Message.ToString());
                 throw new Exception(ex.Message);
             }
         }
@@ -297,7 +300,6 @@ namespace LikeWater.WinHCtl.WinApi
             }
         }
 
-
         private void SendClick(string windowTitle, int index)
         {
             try
@@ -384,10 +386,10 @@ namespace LikeWater.WinHCtl.WinApi
                     SetCursorPos(point.X + x, point.Y + y);
                 }
 
-                virtual_MouseMove(point);
-                virtual_MouseEvent(MouseButtons.Left);
-                virtual_MouseEvent(MouseButtons.Left, type: EventType.Down);
-                virtual_MouseEvent(MouseButtons.Left, type: EventType.Up);
+                Virtual_MouseMove(point);
+                Virtual_MouseEvent(MouseButtons.Left);
+                Virtual_MouseEvent(MouseButtons.Left, type: EventType.Down);
+                Virtual_MouseEvent(MouseButtons.Left, type: EventType.Up);
                 Thread.Sleep(200);
             }
             catch (Exception ex)
@@ -403,29 +405,30 @@ namespace LikeWater.WinHCtl.WinApi
         public string GetPhonesGEO()
         {
             RegistryManager registryManager = new RegistryManager();
-
-            var phones = "";
-            var phonesMainTitle = "";
-            int countGeoFoneTotal = 0;
             string alarmMessage = "";
-            var mainTitle ="";
-            var childTitle = "";
-            int idxPhone1;
-            int idxPhone2;
-            int idxPhone3;
-            int idxPhone4;
-            int idxPhone4A;
-            int idxPhone4L;
-            var phone1 = "";
-            var phone2 = "";
-            var phone3 = "";
-            var phone4 = "";
-            var phone4A = "";
 
             try
             {
-                mainTitle = registryManager.ReadRegistryValue("GEO_MainTitle");
-                childTitle = registryManager.ReadRegistryValue("GEO_ChildTitle");
+                var phones = "";
+                var phonesMainTitle = "";
+                int countGeoFoneTotal = 0;
+                var mainTitle = "";
+                var childTitle = "";
+                int idxPhone1;
+                int idxPhone2;
+                int idxPhone3;
+                int idxPhone4;
+                int idxPhone4A;
+                int idxPhone4L;
+                var phone1 = "";
+                var phone2 = "";
+                var phone3 = "";
+                var phone4 = "";
+                var phone4A = "";
+
+
+                mainTitle = registryManager.ReadRegistryValue("GEOMain_Title");
+                childTitle = registryManager.ReadRegistryValue("GEOChild_Title");
 
                 if (!ScreenActive(mainTitle) && !ScreenActive(childTitle))
                 {
@@ -482,7 +485,7 @@ namespace LikeWater.WinHCtl.WinApi
 
                 if (phone2 == "" || phone2 == null || phone2 == ",")
                 {
-                    alarmMessage = alarmMessage +  "[Erro-2002]GetPhonesGEO - Phone2 null or Empty - ";
+                    alarmMessage += alarmMessage +  "[Erro-2002]GetPhonesGEO - Phone2 null or Empty - ";
                     
                 }
                 else
@@ -495,7 +498,7 @@ namespace LikeWater.WinHCtl.WinApi
 
                 if (phone3 == "" || phone3 == null || phone3 == ",")
                 {
-                    alarmMessage = alarmMessage + "[Erro-2003]GetPhonesGEO - Phone3 null or Empty - ";
+                    alarmMessage += alarmMessage + "[Erro-2003]GetPhonesGEO - Phone3 null or Empty - ";
                 }
                 else
                 {
@@ -509,10 +512,10 @@ namespace LikeWater.WinHCtl.WinApi
                 {
                     if (phone4A == "" || phone4A == null)
                     {
-                        alarmMessage = alarmMessage + "[Erro-2005]GetPhonesGEO - Phone4A null or Empty - ";
+                        alarmMessage += alarmMessage + "[Erro-2005]GetPhonesGEO - Phone4A null or Empty - ";
                     }
                    
-                    alarmMessage = alarmMessage +  "[Erro-2004]GetPhonesGEO - Phone4 null or Empty - ";
+                    alarmMessage += alarmMessage +  "[Erro-2004]GetPhonesGEO - Phone4 null or Empty - ";
 
                     phones = phonesMainTitle;
                 }
@@ -570,6 +573,65 @@ namespace LikeWater.WinHCtl.WinApi
 
             return result;
         }
-        
+
+        public string GetTextFields()
+        {
+            var sb = new StringBuilder();
+            RegistryManager registryManager = new RegistryManager();
+            int idxCampanha;
+            int idxLista;
+           
+
+            try
+            {
+                string windowTitle = "";
+                string childTitle = "";
+
+                windowTitle = registryManager.ReadRegistryValue("GEOMain_Title");
+                childTitle = registryManager.ReadRegistryValue("GEOChild_Title");
+
+                if (!ScreenActive(windowTitle) && (!ScreenActive(childTitle)))
+                {
+                    return "";
+                }
+
+                if (ScreenActive(childTitle))
+                {
+                    idxCampanha = Int32.Parse(registryManager.ReadRegistryValue("GEOChild_IndexCampanha"));
+                    idxLista = Int32.Parse(registryManager.ReadRegistryValue("GEOChild_IndexLista"));
+                    var windowHWnd = FindWindowByCaption(IntPtr.Zero, childTitle);
+                    var childWindows = GetChildWindows(windowHWnd);
+                    var textCampanha = GetTextX(childWindows.ToArray()[idxCampanha]);
+                    sb.Append(textCampanha);
+                    sb.Append(",");
+                    var textLista = GetTextX(childWindows.ToArray()[idxLista]);
+                    sb.Append(textLista);
+                    sb.Append(",");
+                }
+                else
+                {
+                    idxCampanha = Int32.Parse(registryManager.ReadRegistryValue("GEOMain_IndexCampanha"));
+                    idxLista = Int32.Parse(registryManager.ReadRegistryValue("GEOMain_IndexLista"));
+                    var windowHWnd = FindWindowByCaption(IntPtr.Zero, windowTitle);
+                    var childWindows = GetChildWindows(windowHWnd);
+                    var textCampanha = GetTextX(childWindows.ToArray()[idxCampanha]);
+                    sb.Append(textCampanha);
+                    sb.Append(",");
+                    var textLista = GetTextX(childWindows.ToArray()[idxLista]);
+                    sb.Append(textLista);
+                    sb.Append(",");
+                }
+
+                return sb.ToString();
+
+            }
+            catch (Exception ex)
+            {
+                registryManager.SetAlarm("[Erro-1007]WinApiX.GetText() --> " +
+                    "Message Exception: " + ex.Message.ToString());
+                throw new Exception(ex.Message);
+            }
+
+        }
     }
 }

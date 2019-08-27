@@ -13,4 +13,3 @@ C:\repositorios\winhctl\winhctl\winhctl\obj\Debug\LikeWaterWinHCtl.csproj.CoreCo
 C:\repositorios\winhctl\winhctl\winhctl\obj\Debug\LikeWaterWinHCtl.csproj.CopyComplete
 C:\repositorios\winhctl\winhctl\winhctl\obj\Debug\winhctl.dll
 C:\repositorios\winhctl\winhctl\winhctl\obj\Debug\winhctl.pdb
-C:\repositorios\winhctl\winhctl\winhctl\bin\Debug\winhctl.tlb
