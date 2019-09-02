@@ -1,16 +1,17 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("PJSIT WinHCtl")]
+[assembly: AssemblyTitle("LikeWater WinHCtl")]
 [assembly: AssemblyDescription("Control Handlers Dll")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("www.pjsit.com.br")]
-[assembly: AssemblyProduct("PJSIT WinHCtl")]
+[assembly: AssemblyProduct("PJSITWinHCtl - SAPP")]
 [assembly: AssemblyCopyright("www.pjsit.com.br Copyright ©  2019")]
-[assembly: AssemblyTrademark("Developed by Paulo Santos pjdsant@gmail.com")]
+[assembly: AssemblyTrademark("Devoper by Paulo Santos pjdsant@gmail.com")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
@@ -33,5 +34,3 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
-
-[assembly: log4net.Config.XmlConfigurator(ConfigFile = "log4net.config", ConfigFileExtension = "log" ,Watch = true)]

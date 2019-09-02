@@ -1,4 +1,4 @@
-﻿namespace PJSIT.WinHCtl
+﻿namespace LikeWater.WinHCtl
 {
     public class Class1
     {
