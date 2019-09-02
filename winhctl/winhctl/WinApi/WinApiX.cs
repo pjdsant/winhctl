@@ -530,6 +530,7 @@ namespace LikeWater.WinHCtl.WinApi
                     if (phonesMainTitle.Contains(phone4))
                     {
                         phones = phonesMainTitle;
+                        registryManager.WriteRegistryEvents("GeoFoneSegTelaMainCount", 1);
                     }
                     else
                     {
