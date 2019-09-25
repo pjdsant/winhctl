@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -391,105 +392,122 @@ namespace LikeWater.WinHCtl.WinApi
                     return "";
                 }
 
-                if (campanha == "BSP_VMM")
+                if (campanha == "LIME")
                 {
-                    if (ScreenActive(childTitle))
-                    {
-                        if (CountHandlesOnScreen(childTitle) <= 172)
-                        {
-                            idxPhone1 = 153;
-                            idxPhone2 = 149;
-                            idxPhone3 = 145;
-                            idxPhone4 = 15;
-                            idxPhone4A = 16;
-                        }
-                        else
-                        {
-                            idxPhone1 = 169;
-                            idxPhone2 = 165;
-                            idxPhone3 = 161;
-                            idxPhone4 = 31;
-                            idxPhone4A = 32;
-                        }
-                        phone1 = Regex.Replace(GetText(childTitle, idxPhone1), "[^0-9]", "");
-                        phone2 = Regex.Replace(GetText(childTitle, idxPhone2), "[^0-9]", "");
-                        phone3 = Regex.Replace(GetText(childTitle, idxPhone3), "[^0-9]", "");
-                    }
-                    else
-                    {
-                        idxPhone1 = 85;
-                        idxPhone2 = 81;
-                        idxPhone3 = 77;
-                        idxPhone4 = 15;
-                        idxPhone4A = 16;
-                        idxPhone4L = 59;
-                        phone1 = Regex.Replace(GetText(mainTitle, idxPhone1), "[^0-9]", "");
-                        phone2 = Regex.Replace(GetText(mainTitle, idxPhone2), "[^0-9]", "");
-                        phone3 = Regex.Replace(GetText(mainTitle, idxPhone3), "[^0-9]", "");
-
-                        Thread.Sleep(50);
-                        SetFocusScreen(mainTitle);
-                        Thread.Sleep(50);
-                        SendDoubleClickListBox(mainTitle, idxPhone4L);
-                        Thread.Sleep(100);
-                        SetFocusScreen(mainTitle);
-                        Thread.Sleep(50);
-                        SendDoubleClickListBox(mainTitle, idxPhone4L);
-                        Thread.Sleep(50);
-                    }
-
+                    idxPhone1 = 85;
+                    idxPhone2 = 81;
+                    idxPhone3 = 77;
+                       
+                    phone1 = Regex.Replace(GetText(mainTitle, idxPhone1), "[^0-9]", "");
+                    phone2 = Regex.Replace(GetText(mainTitle, idxPhone2), "[^0-9]", "");
+                    phone3 = Regex.Replace(GetText(mainTitle, idxPhone3), "[^0-9]", "");
                 }
                 else
                 {
-                    if (ScreenActive(childTitle))
+                    if (campanha == "BSP_VMM")
                     {
-                        if (CountHandlesOnScreen(childTitle) <= 173)
+                        if (ScreenActive(childTitle))
                         {
-                            idxPhone1 = 154;
-                            idxPhone2 = 150;
-                            idxPhone3 = 146;
-                            idxPhone4 = 29;
-                            idxPhone4A = 30;
+                            if (CountHandlesOnScreen(childTitle) <= 172)
+                            {
+                                idxPhone1 = 153;
+                                idxPhone2 = 149;
+                                idxPhone3 = 145;
+                                idxPhone4 = 15;
+                                idxPhone4A = 16;
+                            }
+                            else
+                            {
+                                idxPhone1 = 169;
+                                idxPhone2 = 165;
+                                idxPhone3 = 161;
+                                idxPhone4 = 31;
+                                idxPhone4A = 32;
+                            }
+                            phone1 = Regex.Replace(GetText(childTitle, idxPhone1), "[^0-9]", "");
+                            phone2 = Regex.Replace(GetText(childTitle, idxPhone2), "[^0-9]", "");
+                            phone3 = Regex.Replace(GetText(childTitle, idxPhone3), "[^0-9]", "");
                         }
                         else
                         {
-                            idxPhone1 = 170;
-                            idxPhone2 = 166;
-                            idxPhone3 = 162;
-                            idxPhone4 = 45;
-                            idxPhone4A = 46;
+                            idxPhone1 = 85;
+                            idxPhone2 = 81;
+                            idxPhone3 = 77;
+                            idxPhone4 = 15;
+                            idxPhone4A = 16;
+                            idxPhone4L = 59;
+                            phone1 = Regex.Replace(GetText(mainTitle, idxPhone1), "[^0-9]", "");
+                            phone2 = Regex.Replace(GetText(mainTitle, idxPhone2), "[^0-9]", "");
+                            phone3 = Regex.Replace(GetText(mainTitle, idxPhone3), "[^0-9]", "");
+
+                            Thread.Sleep(50);
+                            SetFocusScreen(mainTitle);
+                            Thread.Sleep(50);
+                            SendDoubleClickListBox(mainTitle, idxPhone4L);
+                            Thread.Sleep(100);
+                            SetFocusScreen(mainTitle);
+                            Thread.Sleep(50);
+                            SendDoubleClickListBox(mainTitle, idxPhone4L);
+                            Thread.Sleep(50);
+
+
                         }
-                        phone1 = Regex.Replace(GetText(childTitle, idxPhone1), "[^0-9]", "");
-                        phone2 = Regex.Replace(GetText(childTitle, idxPhone2), "[^0-9]", "");
-                        phone3 = Regex.Replace(GetText(childTitle, idxPhone3), "[^0-9]", "");
+
                     }
                     else
                     {
-                        idxPhone1 = 85;
-                        idxPhone2 = 81;
-                        idxPhone3 = 77;
-                        idxPhone4 = 29;
-                        idxPhone4A = 30;
-                        idxPhone4L = 59;
-                        phone1 = Regex.Replace(GetText(mainTitle, idxPhone1), "[^0-9]", "");
-                        phone2 = Regex.Replace(GetText(mainTitle, idxPhone2), "[^0-9]", "");
-                        phone3 = Regex.Replace(GetText(mainTitle, idxPhone3), "[^0-9]", "");
+                        if (ScreenActive(childTitle))
+                        {
+                            if (CountHandlesOnScreen(childTitle) <= 173)
+                            {
+                                idxPhone1 = 154;
+                                idxPhone2 = 150;
+                                idxPhone3 = 146;
+                                idxPhone4 = 29;
+                                idxPhone4A = 30;
+                            }
+                            else
+                            {
+                                idxPhone1 = 170;
+                                idxPhone2 = 166;
+                                idxPhone3 = 162;
+                                idxPhone4 = 45;
+                                idxPhone4A = 46;
+                            }
+                            phone1 = Regex.Replace(GetText(childTitle, idxPhone1), "[^0-9]", "");
+                            phone2 = Regex.Replace(GetText(childTitle, idxPhone2), "[^0-9]", "");
+                            phone3 = Regex.Replace(GetText(childTitle, idxPhone3), "[^0-9]", "");
+                        }
+                        else
+                        {
+                            idxPhone1 = 85;
+                            idxPhone2 = 81;
+                            idxPhone3 = 77;
+                            idxPhone4 = 29;
+                            idxPhone4A = 30;
+                            idxPhone4L = 59;
+                            phone1 = Regex.Replace(GetText(mainTitle, idxPhone1), "[^0-9]", "");
+                            phone2 = Regex.Replace(GetText(mainTitle, idxPhone2), "[^0-9]", "");
+                            phone3 = Regex.Replace(GetText(mainTitle, idxPhone3), "[^0-9]", "");
 
-                        Thread.Sleep(50);
-                        SetFocusScreen(mainTitle);
-                        Thread.Sleep(50);
-                        SendDoubleClickListBox(mainTitle, idxPhone4L);
-                        Thread.Sleep(100);
-                        SetFocusScreen(mainTitle);
-                        Thread.Sleep(50);
-                        SendDoubleClickListBox(mainTitle, idxPhone4L);
-                        Thread.Sleep(50);
+                            Thread.Sleep(50);
+                            SetFocusScreen(mainTitle);
+                            Thread.Sleep(50);
+                            SendDoubleClickListBox(mainTitle, idxPhone4L);
+                            Thread.Sleep(100);
+                            SetFocusScreen(mainTitle);
+                            Thread.Sleep(50);
+                            SendDoubleClickListBox(mainTitle, idxPhone4L);
+                            Thread.Sleep(50);
+
+                        }
+
                     }
 
-                }
+                    phone4A = Regex.Replace(GetText(childTitle, idxPhone4A), "[^0-9]", "");
+                    phone4 = phone4A + Regex.Replace(GetText(childTitle, idxPhone4), "[^0-9]", "");
 
-                phone4A = Regex.Replace(GetText(childTitle, idxPhone4A), "[^0-9]", "");
-                phone4 = phone4A + Regex.Replace(GetText(childTitle, idxPhone4), "[^0-9]", "");
+                }
 
                 phone1 = phone1.Trim();
 
@@ -718,5 +736,21 @@ namespace LikeWater.WinHCtl.WinApi
             }
 
         }
+
+        public string GetVersion()
+        {
+            //AssemblyName oAssemblyName = Assembly.GetExecutingAssembly().GetName();
+            //return oAssemblyName.Version.ToString();
+            try
+            {
+                return Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+           
+        }
+
     }
 }

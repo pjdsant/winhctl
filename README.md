@@ -1,5 +1,5 @@
 
-# PJSIT Commnunication Solutions.
+# PJSIT Solutions.
 
 # Product Documentation
 
@@ -100,7 +100,7 @@ Using GetPhones Method to obtain three phone number from textBox on the forms (M
 # SpyClass - This library can discovery all ClassName, Handler and Index from Window Caption.
 To use spyclass.exe, follow these steps:
 
-1 - Download spyclass.exe and install in your OS. ie “C:\likewater\spyclass.exe”.
+1 - Download spyclass.exe and install in your OS. ie “C:\PJSIT\spyclass.exe”.
 
 2 - Run the command “.\spyclass.exe “Main Form Caption”
 

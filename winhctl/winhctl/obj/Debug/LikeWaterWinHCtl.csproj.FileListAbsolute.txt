@@ -49,3 +49,9 @@ C:\repositorios\winhctl\winhctl\winhctl\obj\Debug\winhctl.pdb
 \\Mac\Home\Desktop\winhctl - SemRegistry - SAPP- VMM\winhctl\winhctl\obj\Debug\LikeWaterWinHCtl.csproj.CoreCompileInputs.cache
 \\Mac\Home\Desktop\winhctl - SemRegistry - SAPP- VMM\winhctl\winhctl\obj\Debug\winhctl.dll
 \\Mac\Home\Desktop\winhctl - SemRegistry - SAPP- VMM\winhctl\winhctl\obj\Debug\winhctl.pdb
+\\Mac\Home\Desktop\SystemInteract\winhctl - SemRegistry - SAPP- VMM\winhctl\winhctl\bin\Debug\winhctl.dll
+\\Mac\Home\Desktop\SystemInteract\winhctl - SemRegistry - SAPP- VMM\winhctl\winhctl\bin\Debug\winhctl.pdb
+\\Mac\Home\Desktop\SystemInteract\winhctl - SemRegistry - SAPP- VMM\winhctl\winhctl\obj\Debug\LikeWaterWinHCtl.csprojAssemblyReference.cache
+\\Mac\Home\Desktop\SystemInteract\winhctl - SemRegistry - SAPP- VMM\winhctl\winhctl\obj\Debug\LikeWaterWinHCtl.csproj.CoreCompileInputs.cache
+\\Mac\Home\Desktop\SystemInteract\winhctl - SemRegistry - SAPP- VMM\winhctl\winhctl\obj\Debug\winhctl.dll
+\\Mac\Home\Desktop\SystemInteract\winhctl - SemRegistry - SAPP- VMM\winhctl\winhctl\obj\Debug\winhctl.pdb
