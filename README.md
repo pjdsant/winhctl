@@ -1,5 +1,5 @@
 
-# PJSIT Solutions.
+# Paulo José dos Santos(pjdsant@gmail.com).
 
 # Product Documentation
 
